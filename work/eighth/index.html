@@ -28,20 +28,69 @@
 </div>
 <script src="../../common/js/jquery.js"></script>
 <script>
-// 今回やるのはページ内スクロールです。
-// 左上にあるメニューを押して、そのタイトルと同じ位置までスクロールするアニメーションです。
-// また100pxほどスクロールすると右下にボタンがフェードインします。
-// そのボタンをクリックするとトップまでアニメーションします。
-// トップまでアニメーションするのでボタンがフェードアウトします。
-// [ヒント]
-// クリックしたメニューとタイトルのひも付けはデータ属性を使っています。この値を比較しましょう。
-// [使うメソッド]
-// .scroll() スクロールすると発火するイベントです。
-// .scrollTop() 画面のスクロール位置を取得します。
-// .animate({ scrollTop: スクロール位置 }) スクロール位置までアニメーションします。
-// .offset().top 要素の位置を取得します。
-// .fadeIn() 要素をフェードインさせる。
-// .fadeOut() 要素をフェードアウトさせる。
+$(function(){
+  //var btn = $('.menu__btn');
+
+  //btn.on('click', function(){
+    //var btn__data = $(this).data('scroll-place-type');
+  //押されたボタンのデータ取得完了
+  //console.log(btn__data);
+  //});
+
+$(".menu__btn").click(function () {
+        var i = $(".menu__btn").index(this)
+        var p = $(".title").eq(i).offset().top;
+        $('html,body').animate({ scrollTop: p }, 'slow');
+        return false;
+    });
+
+
+
+
+
+
+
+
+
+//トップに戻るボタン完成
+  $(window).on('scroll', function(){
+    if($(window).scrollTop() > 100){
+      $('.scrollTopBtn').fadeIn();
+    }else {
+      $('.scrollTopBtn').fadeOut();
+    };
+  });
+
+  $('.scrollTopBtn').on('click', function(){
+    $('html, body').animate({scrollTop: 0 }, 300); return false;
+  });
+
+});
+
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
