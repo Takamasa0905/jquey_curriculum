@@ -29,30 +29,14 @@
 <script src="../../common/js/jquery.js"></script>
 <script>
 $(function(){
-  //var btn = $('.menu__btn');
+  $('.menu__btn').on('click', function() {
+    var btn = $(this).index()
+    var position = $('.title').eq(btn).offset().top;
+    $('html,body').animate({ scrollTop: position }, 'slow');
+    return false;
+  });
 
-  //btn.on('click', function(){
-    //var btn__data = $(this).data('scroll-place-type');
-  //押されたボタンのデータ取得完了
-  //console.log(btn__data);
-  //});
-
-$(".menu__btn").click(function () {
-        var i = $(".menu__btn").index(this)
-        var p = $(".title").eq(i).offset().top;
-        $('html,body').animate({ scrollTop: p }, 'slow');
-        return false;
-    });
-
-
-
-
-
-
-
-
-
-//トップに戻るボタン完成
+  //トップに戻るボタン完成
   $(window).on('scroll', function(){
     if($(window).scrollTop() > 100){
       $('.scrollTopBtn').fadeIn();
