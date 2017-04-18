@@ -48,7 +48,7 @@
 // </li>
 //
 // オブジェクトで取得したデータへのアクセス方法 以下参考程度に
-// http://qiita.com/marumaru8228/items/65fc684383b096f0e548
+//
 //
 //
   // $.ajax({
@@ -63,7 +63,53 @@
   // }).done(function(data) {
   //   // この中にデータ取得後の動きを記述していきます。
   // });
-//
+  //
+$(function(){
+  $('.search__btn').on('click', function(){
+    $('.lists').empty();
+   var searchKeyword = $("#js-search-word").val();
+   ajaxRequest(searchKeyword);
+
+  });
+
+  function ajaxRequest(word){
+    $.ajax({
+         url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',
+         type: 'GET',
+         datatype: 'json',
+         data: {
+           applicationId: '1019399324990976605',
+           booksGenreId: '001',
+           hits: '20',
+           keyword: word
+         }
+    })
+      .done(function(data) {
+        if(!data.hits){
+          $('.lists').text("検索結果０です");
+        };
+        data.Items.forEach(function(item){
+          var temp =  `<li class='lists__item'>
+                      <li class='lists__item'>
+                       <div class='lists__item__inner'>
+                         <a href='' class='lists__item__link' target='_blank'>
+                           <img src='${item.Item.largeImageUrl}' class='lists__item__img' alt=''>
+                           <p class='lists__item__detail'>${item.Item.title}</p>
+                           <p class='lists__item__detail'>${item.Item.author}</p>
+                           <p class='lists__item__detail'>${item.Item.publisherName}</p>
+                         </a>
+                       </div>
+                      </li>`;
+          $('ul').append(temp);
+        })
+      })
+      .fail(function() {
+         $('.lists').text("ネットワークエラーです");
+      });
+  };
+})
+
+
 </script>
 </body>
 </html>
