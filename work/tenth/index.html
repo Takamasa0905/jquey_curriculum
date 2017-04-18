@@ -67,9 +67,12 @@
 $(function(){
   $('.search__btn').on('click', function(){
     $('.lists').empty();
-   var searchKeyword = $("#js-search-word").val();
-   ajaxRequest(searchKeyword);
-
+      if($('#js-search-word').val().length !== 0){
+       var searchKeyword = $("#js-search-word").val();
+       ajaxRequest(searchKeyword);
+      } else{
+        $('ul').text("キーワード挿れて♡");
+      }
   });
 
   function ajaxRequest(word){
@@ -90,7 +93,6 @@ $(function(){
         };
         data.Items.forEach(function(item){
           var temp =  `<li class='lists__item'>
-                      <li class='lists__item'>
                        <div class='lists__item__inner'>
                          <a href='' class='lists__item__link' target='_blank'>
                            <img src='${item.Item.largeImageUrl}' class='lists__item__img' alt=''>
